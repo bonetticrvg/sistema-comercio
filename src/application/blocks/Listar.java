@@ -1,6 +1,7 @@
 package application.blocks;
 
 import static application.blocks.Menu.listaProdutos;
+import static application.blocks.Menu.sc;
 
 public class Listar {
 
@@ -16,7 +17,6 @@ public class Listar {
         {
             System.out.println(i+1 + ") " + listaProdutos.get(i).toString());
         }
-
         System.out.println();
     }
 

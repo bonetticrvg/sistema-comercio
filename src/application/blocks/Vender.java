@@ -23,6 +23,7 @@ public class Vender {
             while(!entradaValida){
                 try
                 {
+
                     System.out.print("Informe o codigo do produto que deseja vender: ");
 
                     codigo = sc.nextLine();
