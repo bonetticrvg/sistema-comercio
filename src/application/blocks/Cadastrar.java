@@ -61,6 +61,11 @@ public class Cadastrar {
 
                     quantidade = sc.nextInt();
 
+                    if (quantidade <= 0)
+                    {
+                        throw new InputMismatchException();
+                    }
+
                     entradaValida = true;
                 }
                 catch (InputMismatchException e)

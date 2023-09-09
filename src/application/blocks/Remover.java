@@ -19,45 +19,46 @@ public class Remover {
 
         sc.nextLine();
 
-        while(!entradaValida)
+        if (!listaProdutos.isEmpty())
         {
-            try
+            while(!entradaValida)
             {
-                System.out.println("Informe o codigo do produto que deseja remover: ");
-
-                codigo = sc.nextLine();
-
-                System.out.println();
-
-                Produto produtoParaRemover = null;
-
-                for (Produto produto: listaProdutos)
+                try
                 {
-                    if(Objects.equals(produto.getCode(), codigo))
+                    System.out.println("Informe o codigo do produto que deseja remover: ");
+
+                    codigo = sc.nextLine();
+
+                    System.out.println();
+
+                    Produto produtoParaRemover = null;
+
+                    for (Produto produto: listaProdutos)
                     {
-                        produtoParaRemover = produto;
+                        if(Objects.equals(produto.getCode(), codigo))
+                        {
+                            produtoParaRemover = produto;
+                        }
                     }
-                }
 
-                if (produtoParaRemover == null)
+                    if (produtoParaRemover == null)
+                    {
+                        throw new InputMismatchException();
+                    }
+
+                    listaProdutos.remove(produtoParaRemover);
+
+                    System.out.println("Produto removido com sucesso!");
+                    System.out.println();
+
+                    entradaValida = true;
+                }
+                catch (InputMismatchException e)
                 {
-                    throw new InputMismatchException();
+                    System.out.println("Caractere inválido! Tente novamente: ");
+                    System.out.println();
                 }
-
-
-                listaProdutos.remove(produtoParaRemover);
-
-                System.out.println("Produto removido com sucesso!");
-                System.out.println();
-
-                entradaValida = true;
-            }
-            catch (InputMismatchException e)
-            {
-                System.out.println("Caractere inválido! Tente novamente: ");
-                System.out.println();
             }
         }
-
     }
 }

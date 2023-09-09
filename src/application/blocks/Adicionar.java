@@ -3,6 +3,7 @@ package application.blocks;
 import entities.Produto;
 
 import java.util.InputMismatchException;
+import java.util.Objects;
 
 import static application.blocks.Menu.listaProdutos;
 import static application.blocks.Menu.sc;
@@ -13,50 +14,65 @@ public class Adicionar {
 
         Listar.listarProdutos();
 
-        int codigo = 0;
+        String codigo = "";
 
         int quantidade = 0;
 
         boolean entradaValida = false;
 
-        while(!entradaValida){
-            try
-            {
-                System.out.print("Informe o codigo do produto que deseja adicionar: ");
+        sc.nextLine();
 
-                codigo = sc.nextInt();
+        if(!listaProdutos.isEmpty())
+        {
+            while(!entradaValida){
+                try
+                {
+                    System.out.print("Informe o codigo do produto que deseja adicionar: ");
 
-                System.out.println();
+                    codigo = sc.nextLine();
 
-                System.out.print("Informe a quantidade: ");
+                    Produto produtoParaAdicionar = null;
 
-                quantidade = sc.nextInt();
+                    for (Produto produto: listaProdutos)
+                    {
+                        if(Objects.equals(produto.getCode(), codigo))
+                        {
+                            produtoParaAdicionar = produto;
+                        }
+                    }
 
-                Produto produto = listaProdutos.get(codigo - 1);
+                    if (produtoParaAdicionar == null)
+                    {
+                        throw new InputMismatchException();
+                    }
 
-                produto.setQuantity(produto.getQuantity() + quantidade);
+                    System.out.println();
 
-                System.out.println();
-                System.out.println("Quantidade alterada com sucesso!");
-                System.out.println();
+                    System.out.print("Informe a quantidade: ");
 
-                entradaValida = true;
+                    quantidade = sc.nextInt();
 
-            }
-            catch (InputMismatchException e)
-            {
-                System.out.println();
-                System.out.println("Caractere inválido! Tente novamente: ");
-                System.out.println();
-                sc.nextLine();
-            }
-            catch (IndexOutOfBoundsException e)
-            {
-                System.out.println();
-                System.out.println("Codigo de produto invalido! Tente novamente: ");
-                System.out.println();
+                    if(quantidade <= 0)
+                    {
+                        throw new InputMismatchException();
+                    }
+
+                    produtoParaAdicionar.setQuantity(produtoParaAdicionar.getQuantity() + quantidade);
+
+                    System.out.println();
+                    System.out.println("Quantidade alterada com sucesso!");
+                    System.out.println();
+
+                    entradaValida = true;
+
+                }
+                catch (InputMismatchException e)
+                {
+                    System.out.println();
+                    System.out.println("Caractere inválido! Tente novamente: ");
+                    System.out.println();
+                }
             }
         }
-
     }
 }

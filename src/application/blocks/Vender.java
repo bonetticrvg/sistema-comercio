@@ -3,65 +3,79 @@ package application.blocks;
 import entities.Produto;
 
 import java.util.InputMismatchException;
+import java.util.Objects;
 
 import static application.blocks.Menu.listaProdutos;
 import static application.blocks.Menu.sc;
 
 public class Vender {
-
     public static void vender(){
         Listar.listarProdutos();
 
         boolean entradaValida = false;
 
-        while(!entradaValida){
-            try
-            {
-                System.out.print("Informe o codigo do produto que deseja vender: ");
+        String codigo = "";
 
-                int codigo = sc.nextInt();
+        sc.nextLine();
 
-                System.out.println();
-
-                System.out.print("Informe a quantidade que deseja vender: ");
-
-                int quantidade = sc.nextInt();
-
-                Produto produto = listaProdutos.get(codigo - 1);
-
-                if(quantidade > produto.getQuantity())
+        if(!listaProdutos.isEmpty())
+        {
+            while(!entradaValida){
+                try
                 {
+                    System.out.print("Informe o codigo do produto que deseja vender: ");
+
+                    codigo = sc.nextLine();
+
                     System.out.println();
-                    System.out.println("Quantidade em estoque insuficiente para venda!");
+
+                    Produto produtoParaVender = null;
+
+                    for (Produto produto: listaProdutos)
+                    {
+                        if(Objects.equals(produto.getCode(), codigo))
+                        {
+                            produtoParaVender = produto;
+                        }
+                    }
+
+                    if (produtoParaVender == null)
+                    {
+                        throw new InputMismatchException();
+                    }
+
+                    System.out.print("Informe a quantidade que deseja vender: ");
+
+                    int quantidade = sc.nextInt();
+
+                    if (quantidade <= 0)
+                    {
+                        throw new InputMismatchException();
+                    }
+
+                    if(quantidade > produtoParaVender.getQuantity())
+                    {
+                        System.out.println();
+                        System.out.println("Quantidade em estoque insuficiente para venda!");
+                        System.out.println();
+                    }
+                    else
+                    {
+                        produtoParaVender.setQuantity(produtoParaVender.getQuantity() - quantidade);
+
+                        System.out.println();
+                        System.out.println("Produto vendido com sucesso!");
+                        System.out.println();
+                    }
+
+                    entradaValida = true;
+                }
+                catch (InputMismatchException e)
+                {
+                    System.out.println("Caractere inválido! Tente novamente: ");
                     System.out.println();
                 }
-                else
-                {
-                    produto.setQuantity(produto.getQuantity() - quantidade);
-
-                    System.out.println();
-                    System.out.println("Produto vendido com sucesso!");
-                    System.out.println();
-                }
-
-                entradaValida = true;
-            }
-            catch (InputMismatchException e)
-            {
-                System.out.println();
-                System.out.println("Caractere inválido! Tente novamente: ");
-                System.out.println();
-                sc.nextLine();
-            }
-            catch (IndexOutOfBoundsException e)
-            {
-                System.out.println();
-                System.out.println("Codigo de produto invalido! Tente novamente: ");
-                System.out.println();
             }
         }
-
-
-
     }
 }
