@@ -1,6 +1,9 @@
 package application.blocks;
 
+import entities.Produto;
+
 import java.util.InputMismatchException;
+import java.util.Objects;
 
 import static application.blocks.Menu.listaProdutos;
 import static application.blocks.Menu.sc;
@@ -10,21 +13,39 @@ public class Remover {
     public static void remover(){
         Listar.listarProdutos();
 
-        int codigo = 0;
+        String codigo = "";
 
         boolean entradaValida = false;
+
+        sc.nextLine();
 
         while(!entradaValida)
         {
             try
             {
-                System.out.print("Informe o codigo do produto que deseja remover: ");
+                System.out.println("Informe o codigo do produto que deseja remover: ");
 
-                codigo = sc.nextInt();
+                codigo = sc.nextLine();
 
                 System.out.println();
 
-                listaProdutos.remove(codigo - 1);
+                Produto produtoParaRemover = null;
+
+                for (Produto produto: listaProdutos)
+                {
+                    if(Objects.equals(produto.getCode(), codigo))
+                    {
+                        produtoParaRemover = produto;
+                    }
+                }
+
+                if (produtoParaRemover == null)
+                {
+                    throw new InputMismatchException();
+                }
+
+
+                listaProdutos.remove(produtoParaRemover);
 
                 System.out.println("Produto removido com sucesso!");
                 System.out.println();
@@ -33,14 +54,7 @@ public class Remover {
             }
             catch (InputMismatchException e)
             {
-                System.out.println();
                 System.out.println("Caractere inválido! Tente novamente: ");
-                System.out.println();
-                sc.nextLine();
-            }
-            catch (IndexOutOfBoundsException e)
-            {
-                System.out.println("Codigo de produto invalido! Tente novamente: ");
                 System.out.println();
             }
         }
