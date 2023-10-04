@@ -62,6 +62,8 @@ public class Adicionar {
                     System.out.println();
                     System.out.println("Quantidade alterada com sucesso!");
                     System.out.println();
+                    System.out.println("Valor total adicionado ao estoque: ");
+                    System.out.println("R$ " + quantidade * produtoParaAdicionar.getPrice());
 
                     entradaValida = true;
 

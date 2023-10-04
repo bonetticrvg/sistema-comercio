@@ -9,13 +9,18 @@ public class Produto {
     private String name;
     private String code;
     private Integer quantity;
+    private Double price;
 
     private List<Produto> estoque = new ArrayList<>();
 
-    public Produto(String name, String code, Integer quantity) {
+    private Vendedor vendedor;
+
+    public Produto(String name, String code, Integer quantity, Double price, Vendedor vendedor) {
         this.name = name;
         this.code = code;
         this.quantity = quantity;
+        this.price = price;
+        this.vendedor = vendedor;
     }
 
     public String getName() {
@@ -46,6 +51,22 @@ public class Produto {
         return estoque;
     }
 
+    public Vendedor getVendedor() {
+        return vendedor;
+    }
+
+    public void setVendedor(Vendedor vendedor) {
+        this.vendedor = vendedor;
+    }
+
+    public Double getPrice() {
+        return price;
+    }
+
+    public void setPrice(Double price) {
+        this.price = price;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -61,7 +82,13 @@ public class Produto {
 
     @Override
     public String toString() {
-        return getName() + " (cod.: " + getCode() + " | estoque: " + getQuantity() + ")" ;
+        return getName() +
+                " (cod.: " + getCode() +
+                " | estoque: " + getQuantity() +
+                " | Preco: " + getPrice() +
+                " | Nome Vendedor: " + getVendedor().getNome() +
+                " | Cpf Vendedor: " + getVendedor().getCpf() +
+        ")" ;
     }
 }
 

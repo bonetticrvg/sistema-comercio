@@ -1,22 +1,36 @@
 package application.blocks;
 
 import entities.Produto;
+import entities.Vendedor;
 
 import java.util.InputMismatchException;
 
+import static application.blocks.Menu.listaVendedores;
 import static application.blocks.Menu.sc;
 
 public class Cadastrar {
 
     public static void cadastrar(){
         System.out.println();
-        System.out.println("Informe os dados do produto que deseja cadastrar: ");
+        System.out.println("Informe os dados do vendedor que esta cadastrando: ");
         System.out.println();
         sc.nextLine();
+        System.out.print("Nome: ");
+        String nomeVendedor = sc.nextLine();
+        System.out.println();
+        System.out.print("Cpf: ");
+        String cpfVendedor = sc.nextLine();
+        Vendedor vendedor = new Vendedor(nomeVendedor, cpfVendedor);
+        listaVendedores.add(vendedor);
+        System.out.println();
+        System.out.println("Informe os dados do produto que deseja cadastrar: ");
+        System.out.println();
         System.out.print("Nome: ");
         String name = sc.nextLine();
         System.out.print("Codigo: ");
         String code = sc.nextLine();
+        System.out.print("Preco: ");
+        double preco = sc.nextDouble();
         System.out.println();
         System.out.println("Voce deseja adicionar alguma quantidade desse produto?");
 
@@ -78,17 +92,18 @@ public class Cadastrar {
             }
 
 
-            Produto produto = new Produto(name, code, quantidade);
+            Produto produto = new Produto(name, code, quantidade ,preco , vendedor);
 
             Menu.listaProdutos.add(produto);
 
             System.out.println();
             System.out.println("Produto adicionado com sucesso!");
             System.out.println();
+            System.out.println("Valor total adicionado ao estoque: ");
+            System.out.println("R$ " + quantidade * produto.getPrice());
         }
-        else if (opcaoAdicionar == 2)
-        {
-            Produto produto = new Produto(name,code,0);
+        else {
+            Produto produto = new Produto(name,code,0, preco, vendedor);
 
             Menu.listaProdutos.add(produto);
 

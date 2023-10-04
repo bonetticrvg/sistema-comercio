@@ -67,6 +67,8 @@ public class Vender {
                         System.out.println();
                         System.out.println("Produto vendido com sucesso!");
                         System.out.println();
+                        System.out.println("Valor total vendido: ");
+                        System.out.println("R$ " + quantidade * produtoParaVender.getPrice());
                     }
 
                     entradaValida = true;

@@ -1,6 +1,7 @@
 package application.blocks;
 
 import entities.Produto;
+import entities.Vendedor;
 
 import java.util.ArrayList;
 import java.util.InputMismatchException;
@@ -11,9 +12,10 @@ public class Menu {
 
     static Scanner sc = new Scanner(System.in);
     static List<Produto> listaProdutos = new ArrayList<>();
+    static List<Vendedor> listaVendedores = new ArrayList<>();
 
     public static void menu(int opcao){
-        while(opcao != 6) {
+        while(opcao != 7) {
             System.out.println("Informe o que deseja fazer:");
             System.out.println();
             System.out.println("1 - Listar");
@@ -21,7 +23,8 @@ public class Menu {
             System.out.println("3 - Adicionar");
             System.out.println("4 - Remover");
             System.out.println("5 - Vender");
-            System.out.println("6 - Sair");
+            System.out.println("6 - Informacoes de vendedores");
+            System.out.println("7 - Sair");
             System.out.println();
 
             boolean entradaValida = false;
@@ -33,7 +36,7 @@ public class Menu {
 
                     opcao = sc.nextInt();
 
-                    if(opcao > 6 || opcao < 1)
+                    if(opcao > 7 || opcao < 1)
                     {
                         throw new InputMismatchException();
                     }
@@ -49,31 +52,24 @@ public class Menu {
             }
 
 
-            switch(opcao){
-                case 1:
-                {
+            switch (opcao) {
+                case 1 -> {
                     Listar.listarProdutos();
-                    break;
                 }
-                case 2:
-                {
+                case 2 -> {
                     Cadastrar.cadastrar();
-                    break;
                 }
-                case 3:
-                {
+                case 3 -> {
                     Adicionar.adicionar();
-                    break;
                 }
-                case 4:
-                {
+                case 4 -> {
                     Remover.remover();
-                    break;
                 }
-                case 5:
-                {
+                case 5 -> {
                     Vender.vender();
-                    break;
+                }
+                case 6 -> {
+                    Vendedores.vendedores();
                 }
             }
         }
