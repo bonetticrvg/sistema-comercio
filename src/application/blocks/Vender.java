@@ -69,6 +69,7 @@ public class Vender {
                         System.out.println();
                         System.out.println("Valor total vendido: ");
                         System.out.println("R$ " + quantidade * produtoParaVender.getPrice());
+                        System.out.println();
                     }
 
                     entradaValida = true;
